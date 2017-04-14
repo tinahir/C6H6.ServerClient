@@ -1,0 +1,2 @@
+export const UPDATE_CURRENCY = 'UPDATE_CURRENCY'
+export const GET_CURRENCY = 'GET_CURRENCY'

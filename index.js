@@ -14,7 +14,7 @@ StompClient.initClient();
 StompClient.connect().then( 
   (response) => {
     if (response) {
-        stompClient.getData("/fx/prices");
+        StompClient.getData("/fx/prices");
     }
     else{
       console.error("StompClient is not working");

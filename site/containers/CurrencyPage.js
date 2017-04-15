@@ -2,11 +2,13 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../actions/updateCurrencyAction';
+import CurrencyDataTable from '../components/datatable/index'
+import { select } from '../state-selector';
 
 export const CurrencyPage = (props) => {
   return (
     <CurrencyDataTable 
-        updateCurrency={prop.actions.updateCurrency}  
+        updateCurrency={props.actions.updateCurrency}  
         currencyData={props.currencyData} 
     />
   );
@@ -14,7 +16,7 @@ export const CurrencyPage = (props) => {
 
 CurrencyPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  currencyData: PropTypes.array.isRequired
+  currencyData: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -29,4 +31,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrencyPage);
+export default connect(select, mapDispatchToProps)(CurrencyPage);

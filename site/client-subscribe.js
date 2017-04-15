@@ -28,7 +28,7 @@ export default class StompClient
     static execute(argument, thisObj){
             const scope = thisObj || window;
             this.handlers.forEach((item) => {
-            item.call(scope, o);
+            item.call(scope, argument);
         });
     }
 
@@ -47,7 +47,7 @@ export default class StompClient
     static getData(header) {
         return new Promise((resolve, reject) => {
             this.client.subscribe(header, (message) => {
-                execute(JSON.parse(header.body));
+                StompClient.execute(JSON.parse(message.body));
                 resolve(true);
             },
             (error) =>{

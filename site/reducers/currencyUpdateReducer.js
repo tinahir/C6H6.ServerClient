@@ -1,15 +1,17 @@
 import {UPDATE_CURRENCY} from '../constants/actionTypes';
 import objectAssign from 'object-assign';
 import initialState from './initialState';
-import Immutable from 'immutable'
+import { List, Map } from 'immutable';
 
 
-export default function currencyUpdateReducer(state = initialState, action) {
+const init = Map();
+
+export default function currencyUpdateReducer(state = init, action) {
   switch (action.type) {
     case UPDATE_CURRENCY:
-      return state.merge({
-        currencies: action.currency
-      });
+      action.currency.dateModified = action.dateModified;
+      let newState = state.set(action.currency.name, action.currency);
+      return newState;
     default:
       return state;
   }

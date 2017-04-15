@@ -1,53 +1,47 @@
 import React, {PropTypes} from 'react';
-import StompClient from './site/client-subscribe'
+import StompClient from '../../../site/client-subscribe'
+
 
 class datatable extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.update = this.update.bind();
   }
 
   componentDidMount(){
-    StompClient.subscribe(this.update);
+    StompClient.subscribe(this.props.updateCurrency);
   }
 
   componentWillUnmount() {
-     StompClient.unSubscribe(this.update);
+     StompClient.unSubscribe(this.props.updateCurrency);
   }
 
-  update(currency) {
-    this.props.updateCurrency(currency);
+  convertToArray(){
+     let currency = [];
+     for(let item in this.props.currencyData) {
+        currency.push(this.props.currencyData[item]);
+     }
+     return _.orderBy(currency, ['dateModified'], ['desc']);
   }
 
-  _currencyRows(){
-    const currencyItem = (item) => {
-         return (
+  currencyItem(item){
+    return (
             <tr key = {item.name}>
             <td>{item.name}</td>
             <td>{item.bestBid}</td>
             <td>{item.bestAsk}</td>
             <td>{item.lastChangeAsk}</td>
             <td>{item.lastChangeBid}</td>
+            <td>{item.midprice}</td>
             </tr>
-         )
-     };
-     if (props.currencyData.length > 0)
-     {
-        return props.currencyData.map(currencyItem);
-     }
-     else{
-        return (
-            <tr>
-                <td colSpan="5">No record found</td>
-           </tr>
-        );
-     }
+    )
+  }
+
+  _currencyRows(){
+    return this.convertToArray().map(this.currencyItem);
   }
 
   render() {
-    const {fuelSavings} = this.props;
-
     return (
     <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
@@ -57,6 +51,7 @@ class datatable extends React.Component {
                 <th>current best ask price</th>
                 <th>best bid last changed</th>
                 <th>best ask price last changed</th>
+                <th>midprice</th>
             </tr>
         </thead>
         <tbody>
@@ -67,7 +62,7 @@ class datatable extends React.Component {
 }
 
 datatable.propTypes = {
-    currencyData: PropTypes.array.isRequired,
+    currencyData: PropTypes.object.isRequired,
     updateCurrency: PropTypes.func.isRequired
 };
 

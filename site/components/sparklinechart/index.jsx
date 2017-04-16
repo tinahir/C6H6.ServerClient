@@ -1,13 +1,34 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
+import Sparkline from '../../../site/sparkline';
 
-const SparklineChart = () => {
+class SparklineChart extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+  
+  draw(){
+    const sparkElement = ReactDOM.findDOMNode(this.refs[this.props.name]);
+    Sparkline.draw(sparkElement, this.props.data);
+  }
 
-    const sparks = document.createElement('span')
-    Sparkline.draw(sparks, [1, 2, 3, 4]);
+  componentDidMount(){
+    this.draw();
+  }
 
-  return (
-    <span></span>
-  );
+  componentDidUpdate(){
+    this.draw();
+  }
+
+  render() {
+    return (
+      <span ref={this.props.name}></span>
+   )}
+}
+
+SparklineChart.propTypes = {
+    data: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 export default SparklineChart;

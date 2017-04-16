@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import StompClient from '../../../site/client-subscribe'
+import SparklineChart from '../sparklinechart/index'
 
 
 class datatable extends React.Component {
@@ -32,7 +33,9 @@ class datatable extends React.Component {
             <td>{item.bestAsk}</td>
             <td>{item.lastChangeAsk}</td>
             <td>{item.lastChangeBid}</td>
-            <td>{item.midprice}</td>
+            <td>
+                <SparklineChart name={item.name} data={item.midprice}></SparklineChart>
+            </td>
             </tr>
     )
   }

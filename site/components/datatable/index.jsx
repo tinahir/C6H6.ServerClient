@@ -2,9 +2,7 @@ import React, {PropTypes} from 'react';
 import StompClient from '../../../site/client-subscribe'
 import SparklineChart from '../sparklinechart/index'
 
-
 class datatable extends React.Component {
-
   constructor(props, context) {
     super(props, context);
   }
@@ -27,16 +25,16 @@ class datatable extends React.Component {
 
   currencyItem(item){
     return (
-            <tr key = {item.name}>
-            <td>{item.name}</td>
-            <td>{item.bestBid}</td>
-            <td>{item.bestAsk}</td>
-            <td>{item.lastChangeAsk}</td>
-            <td>{item.lastChangeBid}</td>
-            <td>
-                <SparklineChart name={item.name} data={item.midprice}></SparklineChart>
-            </td>
-            </tr>
+      <tr key = {item.name}>
+        <td className="mdl-data-table__cell--non-numeric">{item.name}</td>
+        <td>{item.bestBid}</td>
+        <td>{item.bestAsk}</td>
+        <td>{item.lastChangeAsk}</td>
+        <td>{item.lastChangeBid}</td>
+        <td className="mdl-data-table__cell--non-numeric">
+            <SparklineChart limit ={30} name={item.name} data={item.midprice}></SparklineChart>
+        </td>
+      </tr>
     )
   }
 
@@ -46,15 +44,15 @@ class datatable extends React.Component {
 
   render() {
     return (
-    <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+    <table className="mdl-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>current best bid price</th>
-                <th>current best ask price</th>
-                <th>best bid last changed</th>
-                <th>best ask price last changed</th>
-                <th>midprice</th>
+                <th className="mdl-data-table__cell--non-numeric">Name</th>
+                <th>Current best bid price</th>
+                <th>Current best ask price</th>
+                <th>Best bid last changed</th>
+                <th>Best ask last changed</th>
+                <th className="mdl-data-table__cell--non-numeric">midprice</th>
             </tr>
         </thead>
         <tbody>

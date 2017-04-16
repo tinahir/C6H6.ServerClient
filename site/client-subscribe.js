@@ -10,6 +10,7 @@ export default class StompClient
     static initClient(){
         this.handlers = [];
         this.client = Stomp.client(serverUrl);
+        this.client.debug = null;
     }
 
     static subscribe(fn){

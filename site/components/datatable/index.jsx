@@ -15,16 +15,12 @@ class datatable extends React.Component {
      StompClient.unSubscribe(this.props.updateCurrency);
   }
 
-  convertToArray(){
-     let currency = [];
-     for(let item in this.props.currencyData) {
-        currency.push(this.props.currencyData[item]);
-     }
-     return _.orderBy(currency, ['lastChangeBid'], ['asc']);
+  orderByLastChangeBid(){
+     return _.orderBy(this.props.currencyData, ['lastChangeBid'], ['asc']);
   }
 
   currencyRows(){
-    return this.convertToArray().map((item) =>{
+    return this.orderByLastChangeBid().map((item) =>{
       return (
         <tr key = {item.name}>
           <td className="mdl-data-table__cell--non-numeric">{item.name}</td>
@@ -48,8 +44,8 @@ class datatable extends React.Component {
                 <th className="mdl-data-table__cell--non-numeric">Name</th>
                 <th>Current best bid price</th>
                 <th>Current best ask price</th>
-                <th>Best bid last changed</th>
                 <th>Best ask last changed</th>
+                <th>Best bid last changed</th>
                 <th className="mdl-data-table__cell--non-numeric">midprice</th>
             </tr>
         </thead>

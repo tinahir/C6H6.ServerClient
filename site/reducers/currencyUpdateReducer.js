@@ -8,7 +8,6 @@ const init = Map();
 export default function currencyUpdateReducer(state = init, action) {
   switch (action.type) {
     case UPDATE_CURRENCY:
-      action.currency.dateModified = action.dateModified;
       const getCurrent  = state.get(action.currency.name);
       if (getCurrent){
           getCurrent.midprice.push(action.midprice);

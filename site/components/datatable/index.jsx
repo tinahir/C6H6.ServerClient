@@ -3,8 +3,8 @@ import StompClient from '../../../site/client-subscribe'
 import SparklineChart from '../sparklinechart/index'
 
 class datatable extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount(){
@@ -23,23 +23,21 @@ class datatable extends React.Component {
      return _.orderBy(currency, ['dateModified'], ['desc']);
   }
 
-  currencyItem(item){
-    return (
-      <tr key = {item.name}>
-        <td className="mdl-data-table__cell--non-numeric">{item.name}</td>
-        <td>{item.bestBid}</td>
-        <td>{item.bestAsk}</td>
-        <td>{item.lastChangeAsk}</td>
-        <td>{item.lastChangeBid}</td>
-        <td className="mdl-data-table__cell--non-numeric">
-            <SparklineChart limit ={30} name={item.name} data={item.midprice}></SparklineChart>
-        </td>
-      </tr>
-    )
-  }
-
-  _currencyRows(){
-    return this.convertToArray().map(this.currencyItem);
+  currencyRows(){
+    return this.convertToArray().map((item) =>{
+      return (
+        <tr key = {item.name}>
+          <td className="mdl-data-table__cell--non-numeric">{item.name}</td>
+          <td>{item.bestBid}</td>
+          <td>{item.bestAsk}</td>
+          <td>{item.lastChangeAsk}</td>
+          <td>{item.lastChangeBid}</td>
+          <td className="mdl-data-table__cell--non-numeric">
+              <SparklineChart clearDataPoints={this.props.clearDataPoints} clearInterval={30} name={item.name} data={item.midprice}></SparklineChart>
+          </td>
+        </tr>
+      )
+    });
   }
 
   render() {
@@ -56,7 +54,7 @@ class datatable extends React.Component {
             </tr>
         </thead>
         <tbody>
-            {this._currencyRows()}
+            {this.currencyRows()}
         </tbody>
     </table>
   )}
@@ -64,7 +62,8 @@ class datatable extends React.Component {
 
 datatable.propTypes = {
     currencyData: PropTypes.object.isRequired,
-    updateCurrency: PropTypes.func.isRequired
+    updateCurrency: PropTypes.func.isRequired,
+    clearDataPoints: PropTypes.func.isRequired
 };
 
 export default datatable;

@@ -7,3 +7,8 @@ export const updateCurrency = (currency) => ({
     dateModified : _.now(),
     midprice : (currency.lastChangeBid + currency.lastChangeAsk) /2
 });
+
+export const removeDataPoints = (currencyName) => ({ 
+    type: types.REMOVE_DATAPOINTS, 
+    currencyName : currencyName
+});

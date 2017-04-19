@@ -9,7 +9,8 @@ export const CurrencyPage = (props) => {
   return (
     <CurrencyDataTable 
         updateCurrency={props.actions.updateCurrency}  
-        currencyData={props.currencyData} 
+        currencyData={props.currencyData}
+        clearDataPoints={props.actions.removeDataPoints}
     />
   );
 };

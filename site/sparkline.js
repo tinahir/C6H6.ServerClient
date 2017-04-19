@@ -48,7 +48,7 @@
     }
 
     Sparkline.options = {
-        width: 100,
+        width: 200,
         lineColor: "black",
         lineWidth: 1,
         startColor: "transparent",

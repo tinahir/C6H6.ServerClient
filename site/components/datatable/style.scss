@@ -8,6 +8,7 @@
   white-space: nowrap;
   font-size: $data-table-font-size;
   background-color: $color-white;
+  width:100%;
   @include shadow-2dp();
 
   thead {

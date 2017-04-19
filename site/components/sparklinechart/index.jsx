@@ -1,10 +1,11 @@
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Sparkline from '../../../site/sparkline';
+import _ from 'lodash';
 
 class SparklineChart extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
   }
   
   draw(){
@@ -13,20 +14,28 @@ class SparklineChart extends React.Component {
   }
 
   dataToPoints(){
-    let points = [];
-    const limit = this.props.limit;;
-    const len = this.props.data.length;
-    if (limit && limit < len) {
-        points = this.props.data.slice(len - limit);
-    }
-    else{
-      points = this.props.data;
-    }
-    return points;
+    return this.props.data;
   }
 
   componentDidMount(){
+    if (this.props.clearInterval && this.props.clearInterval > 0){
+        this.timerID = setInterval(
+          () => this.clearDataPoints(),
+          (this.props.clearInterval * 1000)
+        );
+    }
+    
     this.draw();
+  }
+
+  clearDataPoints() {
+    this.props.clearDataPoints(this.props.name);
+  }
+
+  componentWillUnmount() {
+     if (this.props.clearInterval && this.props.clearInterval > 0){
+        clearInterval(this.timerID);
+     }
   }
 
   componentDidUpdate(){
@@ -42,7 +51,8 @@ class SparklineChart extends React.Component {
 SparklineChart.propTypes = {
     data: PropTypes.array.isRequired,
     name: PropTypes.string.isRequired,
-    limit: PropTypes.number.isRequired,
+    clearInterval: PropTypes.number.isRequired,
+    clearDataPoints: PropTypes.func.isRequired
 };
 
 export default SparklineChart;

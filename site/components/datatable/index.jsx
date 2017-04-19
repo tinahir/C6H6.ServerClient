@@ -15,12 +15,8 @@ class datatable extends React.Component {
      StompClient.unSubscribe(this.props.updateCurrency);
   }
 
-  orderByLastChangeBid(){
-     return _.orderBy(this.props.currencyData, ['lastChangeBid'], ['asc']);
-  }
-
   currencyRows(){
-    return this.orderByLastChangeBid().map((item) =>{
+    return this.props.currencyData.map((item) =>{
       return (
         <tr key = {item.name}>
           <td className="mdl-data-table__cell--non-numeric">{item.name}</td>
@@ -32,11 +28,15 @@ class datatable extends React.Component {
               <SparklineChart clearDataPoints={this.props.clearDataPoints} clearInterval={30} name={item.name} data={item.midprice}></SparklineChart>
           </td>
         </tr>
-      )
+      );
     });
   }
 
   render() {
+    if(_.isEmpty(this.props.currencyData)){
+      return (<div>No Data</div>);
+    }
+
     return (
     <table className="mdl-data-table mdl-data-table--selectable mdl-shadow--2dp">
         <thead>
@@ -57,7 +57,7 @@ class datatable extends React.Component {
 }
 
 datatable.propTypes = {
-    currencyData: PropTypes.object.isRequired,
+    currencyData: PropTypes.array.isRequired,
     updateCurrency: PropTypes.func.isRequired,
     clearDataPoints: PropTypes.func.isRequired
 };

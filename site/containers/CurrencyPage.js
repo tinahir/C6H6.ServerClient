@@ -17,7 +17,7 @@ export const CurrencyPage = (props) => {
 
 CurrencyPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  currencyData: PropTypes.object.isRequired
+  currencyData: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {

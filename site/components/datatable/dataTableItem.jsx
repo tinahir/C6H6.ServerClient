@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import SparklineChart from '../sparklinechart/index'
 
 class dataTableItem extends React.Component {
   constructor(props) {
@@ -11,14 +12,14 @@ class dataTableItem extends React.Component {
 
   render() {
     return (
-        <tr key = {this.props.item.name}>
-          <td className="mdl-data-table__cell--non-numeric">{this.props.item.name}</td>
-          <td>{this.props.item.bestBid}</td>
-          <td>{this.props.item.bestAsk}</td>
-          <td>{this.props.item.lastChangeAsk}</td>
-          <td>{this.props.item.lastChangeBid}</td>
+        <tr>
+          <td className="mdl-data-table__cell--non-numeric">{this.currency.item.name}</td>
+          <td>{this.props.currency.bestBid}</td>
+          <td>{this.props.currency.bestAsk}</td>
+          <td>{this.props.currency.lastChangeAsk}</td>
+          <td>{this.props.currency.lastChangeBid}</td>
           <td className="mdl-data-table__cell--non-numeric">
-              <SparklineChart clearDataPoints={this.props.clearDataPoints} clearInterval={30} name={this.props.item.name} data={this.props.item.midprice}></SparklineChart>
+              <SparklineChart clearDataPoints={this.props.clearDataPoints} clearInterval={30} name={this.props.currency.name} data={this.props.currency.midprice}></SparklineChart>
           </td>
         </tr>
       );
@@ -26,7 +27,7 @@ class dataTableItem extends React.Component {
 }
 
 dataTableItem.propTypes = {
-    item: PropTypes.object.isRequired,
+    currency: PropTypes.object.isRequired,
     clearDataPoints: PropTypes.func.isRequired
 };
 

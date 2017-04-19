@@ -13,7 +13,7 @@ export default function currencyUpdateReducer(state = init, action) {
       if (getCurrent){
           getCurrent.midprice.push(action.midprice);
           action.currency.midprice =  getCurrent.midprice;
-          return state.mergeIn([action.currency.name], action.currency);
+          return state.set(action.currency.name, action.currency);
       }
       else{
           action.currency.midprice = [];

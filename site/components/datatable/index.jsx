@@ -20,7 +20,7 @@ class datatable extends React.Component {
      for(let item in this.props.currencyData) {
         currency.push(this.props.currencyData[item]);
      }
-     return _.orderBy(currency, ['dateModified'], ['desc']);
+     return _.orderBy(currency, ['lastChangeBid'], ['asc']);
   }
 
   currencyRows(){

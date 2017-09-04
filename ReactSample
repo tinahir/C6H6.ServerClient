@@ -1,0 +1,47 @@
+class Button extends React.Component {
+	
+  handleClick = () => {
+  	this.props.onClickFn(this.props.incrmentValue);
+  };
+  
+	render(){
+  	return (
+  		<button onClick={this.handleClick}>
+      	+{this.props.incrmentValue}
+      </button>
+  	);
+  }
+}
+
+const Result = (prop) => {
+	return (
+  	<div>
+    {prop.value}
+  	</div>
+  )
+}
+
+class App extends React.Component {
+	state = { counter: 0 };
+  
+  incrementCounter = (incrmentValue) => {
+  	this.setState((prevState) => ({ 
+    		counter: prevState.counter + incrmentValue
+    }));
+  }
+
+	render() {
+  	return (
+    <div>
+   		<Button incrmentValue={1} onClickFn={this.incrementCounter} />
+      <Button incrmentValue={2} onClickFn={this.incrementCounter} />
+      <Button incrmentValue={5} onClickFn={this.incrementCounter} />
+      <Button incrmentValue={20} onClickFn={this.incrementCounter} />
+      <Button incrmentValue={100} onClickFn={this.incrementCounter} />
+      <Result value={this.state.counter} />
+    </div>  
+  	);
+  }
+}
+
+ReactDOM.render(<App />, mountNode)
